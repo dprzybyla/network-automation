@@ -3,12 +3,12 @@
 # Input switch data from csv file and execute command(s).
 # The file includes the switch type, the login name, and the ip address.
 
-from csv import reader                               # Read a text file in csv formot.
-from getpass import getpass                          # Input from keyboard without an echo.
-from netmiko import ConnectHandler                   # Create an ssh connection to a device.
-from multiprocessing import Process, current_process # Multiprocessing functions.
-from datetime import datetime                        # Used to measure elapsed time.
-from pyping import ping                              # Provides the ping command.
+from csv import reader                                  # Read a text file in csv formot.
+from getpass import getpass                             # Input from keyboard without an echo.
+from netmiko import ConnectHandler                      # Create an ssh connection to a device.
+from multiprocessing import Process, current_process    # Multiprocessing functions.
+from datetime import datetime                           # Used to measure elapsed time.
+from pyping import ping                                 # Provides the ping command.
 
 def my_command(switch):
     # Log into switch.
@@ -35,7 +35,7 @@ def my_command(switch):
 
     # Execute non-configuration command(s).
     #ssh_connection.send_command('write')
-    output1 = ssh_connection.send_command('show mac address-table | inc 003e.e1c2.0691')
+    output1 = ssh_connection.send_command('sh run | inc vlan 31')
 
     # Only print command result if there is output.
     if output1:
@@ -93,14 +93,14 @@ def main():
 
         # If the switch is up, execute the desired command(s).
         if pingstatus.ret_code == 0:
-            my_process = Process(target=my_command, args=(switch,)) # Spawn a process to run the command(s).
-            my_process.start() # Start the process.
-            processes.append(my_process) # Add the process to the list of processes.
+            my_process = Process(target=my_command, args=(switch,))    # Spawn a process to run the command(s).
+            my_process.start()                                         # Start the process.
+            processes.append(my_process)                               # Add the process to the list of processes.
 
     # End the processes.
     for a_process in processes:
         #print a_process
-        a_process.join()
+        a_process.join()                                               # Process completes, return to main thread.
 
     # Determine how long it took to run the command(s).
     elapsed_time = datetime.now() - start_time
