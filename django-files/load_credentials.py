@@ -20,8 +20,8 @@ def main():
     standard_credentials = Credentials.objects.get_or_create(
         description = 'standard',
         username = 'admin',
-        password = 'gh#$1paM',
-        secret = 'Bbn#pau4'
+        password = 'XXXXXX',
+        secret = 'XXXXXX'
     )
     print standard_credentials
 
