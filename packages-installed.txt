@@ -5,3 +5,7 @@ require django >= 1.7, use pip instead of RPM
 pip install django
 pip install --upgrade pip
 
+# Using Django as an ORM will require the following
+export DJANGO_SETTINGS_MODULE=djproject.settings
+export PYTHONPATH=~/DJANGOX/djproject/
+
